@@ -1,0 +1,367 @@
+/**
+ * CoinSlab Component Styles
+ * All classes prefixed with .coin-slab__ to avoid conflicts
+ */
+
+/* Import Google Fonts for handwritten labels */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&family=Kalam:wght@300;400;700&display=swap');
+
+/* ============================================
+   Slab Container
+   ============================================ */
+
+.coin-slab {
+  --coin-slab-width: 260px;
+  --coin-slab-height: 400px;
+  --coin-slab-coin-size: 70%;
+
+  /* Colors */
+  --coin-slab-border: #c0c0c8;
+  --coin-slab-border-light: #d8d8e0;
+  --coin-slab-border-dark: #8a8a95;
+  --coin-slab-velvet: #080810;
+  --coin-slab-label-bg: #f4f1e8;
+
+  display: inline-block;
+  width: var(--coin-slab-width);
+  height: var(--coin-slab-height);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   Outer Plastic Casing
+   ============================================ */
+
+.coin-slab__outer {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+
+  /* Transparent grey-tinted plastic gradient */
+  background: linear-gradient(
+    168deg,
+    rgba(215, 218, 228, 0.24) 0%,
+    rgba(195, 198, 208, 0.15) 14%,
+    rgba(175, 178, 188, 0.09) 32%,
+    rgba(165, 168, 178, 0.07) 48%,
+    rgba(175, 178, 188, 0.11) 66%,
+    rgba(198, 200, 212, 0.17) 82%,
+    rgba(215, 218, 228, 0.22) 100%
+  );
+
+  /* Beveled silver border */
+  border: 2.5px solid var(--coin-slab-border);
+  border-top-color: var(--coin-slab-border-light);
+  border-left-color: var(--coin-slab-border-light);
+  border-right-color: var(--coin-slab-border-dark);
+  border-bottom-color: var(--coin-slab-border-dark);
+
+  /* Multi-layer drop shadows for depth */
+  /* box-shadow removed */
+
+  transition: transform 0.3s ease;
+}
+
+.coin-slab:hover .coin-slab__outer {
+  transform: scale(1.02);
+  /* hover box-shadow removed */
+}
+
+/* Top glossy reflection */
+.coin-slab__outer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.20) 0%,
+    rgba(255, 255, 255, 0.09) 18%,
+    rgba(255, 255, 255, 0.025) 45%,
+    transparent 100%
+  );
+  border-radius: 12px 12px 0 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Diagonal light streak across plastic */
+.coin-slab__outer::after {
+  content: '';
+  position: absolute;
+  top: 4%;
+  left: -28%;
+  width: 62%;
+  height: 92%;
+  background: linear-gradient(
+    112deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.018) 40%,
+    rgba(255, 255, 255, 0.065) 47%,
+    rgba(255, 255, 255, 0.11) 50%,
+    rgba(255, 255, 255, 0.065) 53%,
+    rgba(255, 255, 255, 0.018) 60%,
+    transparent 100%
+  );
+  transform: rotate(-14deg);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ============================================
+   Plastic Edge Highlights
+   ============================================ */
+
+.coin-slab__edge-left,
+.coin-slab__edge-right {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.coin-slab__edge-left {
+  left: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(225, 225, 235, 0.22) 0%,
+    rgba(205, 205, 215, 0.08) 35%,
+    rgba(195, 195, 205, 0.06) 50%,
+    rgba(205, 205, 215, 0.08) 65%,
+    rgba(225, 225, 235, 0.18) 100%
+  );
+}
+
+.coin-slab__edge-right {
+  right: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(155, 155, 165, 0.12) 0%,
+    rgba(135, 135, 145, 0.05) 35%,
+    rgba(125, 125, 135, 0.04) 50%,
+    rgba(135, 135, 145, 0.05) 65%,
+    rgba(155, 155, 165, 0.09) 100%
+  );
+}
+
+/* ============================================
+   Horizontal Seam Line
+   ============================================ */
+
+.coin-slab__seam {
+  position: absolute;
+  top: 38%;
+  left: 3px;
+  right: 3px;
+  height: 1.5px;
+  z-index: 6;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(165, 168, 180, 0.18) 12%,
+    rgba(180, 183, 196, 0.40) 32%,
+    rgba(190, 193, 206, 0.55) 50%,
+    rgba(180, 183, 196, 0.40) 68%,
+    rgba(165, 168, 180, 0.18) 88%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ============================================
+   Inner Black Velvet Cavity
+   ============================================ */
+
+.coin-slab__inner {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border-radius: 9px;
+  overflow: hidden;
+
+  /* Deep black velvet base */
+  background-color: var(--coin-slab-velvet);
+
+  /* Velvet texture: subtle noise-like gradients */
+  background-image:
+    radial-gradient(ellipse at 22% 12%, rgba(28, 28, 44, 0.48) 0%, transparent 52%),
+    radial-gradient(ellipse at 78% 88%, rgba(20, 20, 34, 0.32) 0%, transparent 52%),
+    radial-gradient(ellipse at 50% 50%, rgba(16, 16, 28, 0.18) 0%, transparent 65%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.004) 2px,
+      rgba(255, 255, 255, 0.004) 3px
+    );
+
+  /* Deep inset shadow removed */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ============================================
+   White Paper Label
+   ============================================ */
+
+.coin-slab__label {
+  width: calc(100% - 16px);
+  margin: 9px 8px 0;
+  padding: 6px 10px 5px;
+  border-radius: 3px;
+  min-height: 52px;
+  position: relative;
+  z-index: 2;
+
+  /* Off-white paper background */
+  background: var(--coin-slab-label-bg);
+
+  /* Faint ruled lines like notebook paper */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 18px,
+    rgba(0, 0, 0, 0.022) 18px,
+    rgba(0, 0, 0, 0.022) 19px
+  );
+  /* box-shadow removed */
+}
+
+.coin-slab__label-text {
+  font-size: 15px;
+  color: #18161e;
+  line-height: 1.38;
+  font-weight: 600;
+  letter-spacing: 0.15px;
+  text-shadow: 0 0 0.4px rgba(0, 0, 0, 0.12);
+}
+
+/* Year and Grade on same line, spaced apart */
+.coin-slab__label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+/* ============================================
+   Coin Display Area
+   ============================================ */
+
+.coin-slab__coin-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 6px;
+}
+
+/* Circular coin window / cutout */
+.coin-slab__coin-window {
+  width: var(--coin-slab-coin-size);
+  aspect-ratio: 1;
+  max-width: 82%;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Recessed circular area */
+  background: radial-gradient(
+    circle,
+    rgba(22, 22, 32, 1) 0%,
+    rgba(12, 12, 20, 1) 78%,
+    rgba(6, 6, 14, 1) 100%
+  );
+
+  /* Multi-ring inset shadow removed */
+}
+
+/* Plastic shine overlay on top of coin */
+.coin-slab__coin-window::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(
+    142deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.045) 28%,
+    transparent 52%,
+    rgba(255, 255, 255, 0.015) 78%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Coin image — preserves original artwork */
+.coin-slab__coin-img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  /* drop-shadow removed */
+  image-rendering: auto;
+  user-select: none;
+}
+
+/* Empty state placeholder */
+.coin-slab__empty {
+  color: rgba(255, 255, 255, 0.10);
+  font-size: 2rem;
+  text-align: center;
+  user-select: none;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.coin-slab__empty small {
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.07);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 768px) {
+  .coin-slab {
+    --coin-slab-width: min(260px, 100%);
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  .coin-slab__outer {
+    /* box-shadow removed */
+  }
+
+  .coin-slab:hover .coin-slab__outer {
+    transform: none;
+  }
+}

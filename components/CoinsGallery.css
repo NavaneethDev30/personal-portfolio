@@ -1,0 +1,273 @@
+/**
+ * CoinsGallery.css
+ * Styles for the 3D coin gallery — scoped via .coins-gallery-* prefix.
+ * Does NOT affect CircularGallery, CoinSlab, or any other component.
+ */
+
+/* ──────────────────────────────────────────────
+   Section
+   ────────────────────────────────────────────── */
+
+.coins-gallery-section {
+  width: 100%;
+  background: #0a0a0c;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 2rem;
+}
+
+/* ──────────────────────────────────────────────
+   Header
+   ────────────────────────────────────────────── */
+
+.coins-gallery-header {
+  text-align: center;
+  padding: 2.5rem 1rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.coins-gallery-title {
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(
+    135deg,
+    #f5e6c8 0%,
+    #d4a853 40%,
+    #f5e6c8 60%,
+    #b8902e 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.coins-gallery-subtitle {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 0.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ──────────────────────────────────────────────
+   Stage (holds canvas + overlays)
+   ────────────────────────────────────────────── */
+
+.coins-gallery-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(460px, 62vh, 700px);
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  perspective: 1400px;
+  perspective-origin: 50% 45%;
+}
+
+.coins-gallery-stage:active {
+  cursor: grabbing;
+}
+
+/* Curved 3D track: holds the real coin slabs (DOM, not WebGL) */
+.coins-gallery-track {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform-style: preserve-3d;
+}
+
+/* Individual slab wrapper — animation writes transform/opacity/zIndex here */
+.coins-gallery-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 400px;
+  margin-left: -130px;
+  margin-top: -200px;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* ──────────────────────────────────────────────
+   Edge gradient fades
+   ────────────────────────────────────────────── */
+
+.coins-gallery-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.coins-gallery-fade--left {
+  left: 0;
+  background: linear-gradient(90deg, #0a0a0c 0%, transparent 100%);
+}
+
+.coins-gallery-fade--right {
+  right: 0;
+  background: linear-gradient(-90deg, #0a0a0c 0%, transparent 100%);
+}
+
+/* ──────────────────────────────────────────────
+   Coin Info Card
+   ────────────────────────────────────────────── */
+
+.coins-info-card {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  text-align: center;
+  background: rgba(12, 12, 16, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(212, 168, 83, 0.18);
+  border-radius: 16px;
+  padding: 1rem 2rem;
+  min-width: 240px;
+  animation: coinsInfoFadeIn 0.5s ease-out;
+}
+
+@keyframes coinsInfoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.coins-info-grade {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d4a853;
+  background: rgba(212, 168, 83, 0.1);
+  border: 1px solid rgba(212, 168, 83, 0.2);
+  border-radius: 6px;
+  padding: 0.15rem 0.6rem;
+  margin-bottom: 0.45rem;
+}
+
+.coins-info-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.coins-info-meta {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.coins-info-dot {
+  color: rgba(212, 168, 83, 0.45);
+}
+
+/* ──────────────────────────────────────────────
+   Navigation Dots
+   ────────────────────────────────────────────── */
+
+.coins-gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.75rem 0 0.5rem;
+}
+
+.coins-gallery-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 168, 83, 0.3);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.35s ease;
+}
+
+.coins-gallery-dot--active {
+  background: #d4a853;
+  border-color: #d4a853;
+  box-shadow: 0 0 8px rgba(212, 168, 83, 0.4);
+  transform: scale(1.25);
+}
+
+.coins-gallery-dot:hover:not(.coins-gallery-dot--active) {
+  border-color: rgba(212, 168, 83, 0.6);
+  background: rgba(212, 168, 83, 0.15);
+}
+
+/* ──────────────────────────────────────────────
+   Responsive
+   ────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .coins-gallery-stage {
+    height: clamp(280px, 50vh, 420px);
+  }
+
+  .coins-info-card {
+    padding: 0.75rem 1.2rem;
+    min-width: 200px;
+    bottom: 1rem;
+  }
+
+  .coins-info-title {
+    font-size: 1.1rem;
+  }
+
+  .coins-gallery-fade {
+    width: 8%;
+  }
+
+  .coins-gallery-dots {
+    gap: 0.35rem;
+  }
+
+  .coins-gallery-dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .coins-gallery-header {
+    padding: 1.5rem 0.75rem 0.5rem;
+  }
+
+  .coins-info-card {
+    min-width: 170px;
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+  }
+
+  .coins-info-title {
+    font-size: 0.95rem;
+  }
+
+  .coins-info-meta {
+    font-size: 0.7rem;
+  }
+}
