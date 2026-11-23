@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar"
 import About from "@/components/About"
 import Skills from "@/components/Skills"
 import Coins from "@/components/Coins"
+import Cats from "@/components/Cats"
 import Contact from "@/components/Contact"
 
 const LightRaysBackground = dynamicImport(() => import("@/components/LightRaysBackground"), { 
@@ -55,6 +56,10 @@ export default function Page() {
 
       <div>
         <Coins/>
+      </div>
+
+      <div>
+        <Cats/>
       </div>
 
       <div>
